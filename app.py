@@ -15,9 +15,10 @@ app = Flask(__name__)
 
 
 aqi_level = 17
-bg_color = 'green'
+bg_color = '#FAEBD7'
 
 levels = []
+levelsDaily = []
 dates = []
 
 
@@ -71,10 +72,13 @@ for i in range(40):
 
     dates.append(today)
 
+for i in range(24):
+    levelsDaily.append(pollution[500+i*5])
+
 
 @app.route('/')
 def index():
-    return render_template('index.html', aqi_level=aqi_level, bg_color=bg_color, levels=levels, dates=dates)
+    return render_template('index.html', aqi_level=aqi_level, bg_color=bg_color, levels=levels, levelsDaily=levelsDaily, dates=dates)
 
 
 if __name__ == '__main__':
