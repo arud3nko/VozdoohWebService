@@ -24,17 +24,17 @@
                        var data1 = google.visualization.arrayToDataTable([
                          ['daytime', 'AQI', {role: 'style'}, 'Average'],
                            {% for i in range(40) %}
-                           ['{{ dates[i] }}', {{ levels[i] }}, '{% if levels[i] > 50 %} {{'darkred'}} {% endif %} {% if levels[i] <= 50 %} {{ 'green' }} {% endif %}', {{levels[i]}}],
+                           ['{% if i%8 == 0 %} {{ dates[40-1-i] }} {% else %} {{ '' }} {% endif %}', {{ levelsDaily[40-1-i] }}, '{% if levelsDaily[40-1-i] >= 100 %} {{'darkred'}} {% endif %} {% if levelsDaily[40-1-i] < 100 and levelsDaily[40-1-i] >= 50 %} {{ 'goldenrod' }} {% endif %} {% if levelsDaily[40-1-i] < 50 %} {{ 'green' }} {% endif %}', {{levelsDaily[40-1-i]}}],
                            {% endfor %}
                         ]);
 
                         var options1 = {
-                         title: 'Уровень загрязнения воздуха в этом месяце',
-                         hAxis: {title: 'Время', textStyle: { italic: 'true', fontSize: 12}},
+                         title: 'Уровень загрязнения воздуха на ближайшие 5 дней',
+                         hAxis: {title: 'Дата', textStyle: { italic: 'true', fontSize: 12}},
                          vAxis: {title: 'Air Quality Index', baselineColor: 'black'},
                          backgroundColor: 'none',
                          animation: {
-                             duration: 2000,
+                             duration: 1000,
                              startup: true,
                              easing: 'out' },
 
@@ -47,12 +47,12 @@
                         };
 
                         var options2 = {
-                         title: 'Уровень загрязнения воздуха сегодня',
-                         hAxis: {title: 'Дата', textStyle: { italic: 'true', fontSize: 12}},
-                         vAxis: {title: 'Air Quality Index', baselineColor: 'black', ticks: [5, 10, 20, 30, 40, 50] },
+                         title: 'Уровень загрязнения воздуха в ближайшие сутки',
+                         hAxis: {title: 'Время', textStyle: { italic: 'true', fontSize: 12}},
+                         vAxis: {title: 'Air Quality Index', baselineColor: 'black'},
                          backgroundColor: 'none',
                          animation: {
-                             duration: 2000,
+                             duration: 1000,
                              startup: true,
                              easing: 'out' },
 
@@ -67,7 +67,7 @@
                         var data2 = google.visualization.arrayToDataTable([
                          ['daytime', 'AQI', {role: 'style'}, 'Average'],
                            {% for i in range(24) %}
-                           ['{{i}}ч.', {{ levelsDaily[i] }}, '{% if levelsDaily[i] > 50 %} {{'darkred'}} {% endif %} {% if levelsDaily[i] <= 50 %} {{ 'green' }} {% endif %}', {{levelsDaily[i]}}],
+                           ['{{hours[24-1-i]}}', {{ levelsHourly[24-1-i] }}, '{% if levelsHourly[24-1-i] >= 100 %} {{'darkred'}} {% endif %} {% if levelsHourly[24-1-i] < 100 and levelsHourly[24-1-i] >= 50 %} {{ 'goldenrod' }} {% endif %} {% if levelsHourly[24-1-i] < 50 %} {{ 'green' }} {% endif %}', {{levelsHourly[24-1-i]}}],
                            {% endfor %}
                         ]);
 
